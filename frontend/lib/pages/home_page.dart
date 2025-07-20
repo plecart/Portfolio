@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Mon Portfolio'),
+        title: const Text('Mon Portfolio', style: TextStyle(fontSize: 32)),
         centerTitle: true,
         elevation: 0,
       ),

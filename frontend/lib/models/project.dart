@@ -9,7 +9,7 @@ class Project {
   final String projectDescription;
   final String? projectReason;
   final List<Technology> technologies;
-  final bool professional;
+  final String projectType; // 'SCHOOL', 'PROFESSIONAL', 'PERSONAL'
 
   Project({
     required this.id,
@@ -20,7 +20,7 @@ class Project {
     required this.projectDescription,
     this.projectReason,
     required this.technologies,
-    required this.professional,
+    required this.projectType,
   });
 
   factory Project.fromJson(Map<String, dynamic> json) {
@@ -34,7 +34,7 @@ class Project {
       projectDescription: json['project_description'],
       projectReason: json['project_reason'],
       technologies: techList.map((t) => Technology.fromJson(t)).toList(),
-      professional: json['professional'],
+      projectType: json['project_type'],
     );
   }
 } 

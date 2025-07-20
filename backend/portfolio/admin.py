@@ -16,13 +16,13 @@ class TechnologyAdmin(admin.ModelAdmin):
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'client', 'platform', 'professional', 'thumbnail_tag')
-    list_filter = ('professional', 'platform', 'technologies')
+    list_display = ('title', 'client', 'platform', 'project_type', 'thumbnail_tag')
+    list_filter = ('project_type', 'platform', 'technologies')
     search_fields = ('title', 'client')
     filter_horizontal = ('technologies',)
     fieldsets = (
         (None, {
-            'fields': ('title', 'client', 'thumbnail', 'platform', 'professional')
+            'fields': ('title', 'client', 'thumbnail', 'platform', 'project_type')
         }),
         ('Description', {
             'fields': ('project_description', 'project_reason')

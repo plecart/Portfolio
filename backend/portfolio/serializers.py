@@ -13,5 +13,5 @@ class ProjectSerializer(serializers.ModelSerializer):
         model = Project
         fields = [
             'id', 'title', 'client', 'thumbnail', 'platform',
-            'project_description', 'project_reason', 'technologies', 'professional'
+            'project_description', 'project_reason', 'technologies', 'project_type'
         ] 

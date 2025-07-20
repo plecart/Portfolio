@@ -37,6 +37,14 @@ class Project(models.Model):
         (WEB, 'Web'),
         (MOBILE, 'Mobile'),
     ]
+    SCHOOL = 'SCHOOL'
+    PROFESSIONAL = 'PROFESSIONAL'
+    PERSONAL = 'PERSONAL'
+    PROJECT_TYPE_CHOICES = [
+        (SCHOOL, 'School'),
+        (PROFESSIONAL, 'Professional'),
+        (PERSONAL, 'Personal'),
+    ]
     title = models.CharField(max_length=200)
     client = models.CharField(max_length=200, blank=True, null=True)
     thumbnail = models.ImageField(upload_to='thumbnails/')
@@ -44,7 +52,7 @@ class Project(models.Model):
     project_description = models.TextField()
     project_reason = models.TextField(blank=True, null=True)
     technologies = models.ManyToManyField(Technology, blank=True)
-    professional = models.BooleanField(default=False)
+    project_type = models.CharField(max_length=20, choices=PROJECT_TYPE_CHOICES, default=PERSONAL)
 
     def __str__(self):
         return self.title
