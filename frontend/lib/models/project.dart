@@ -1,5 +1,25 @@
 import 'technology.dart';
 
+enum ProjectType { school, professional, personal }
+
+const Map<String, ProjectType> _stringToProjectType = {
+  'SCHOOL': ProjectType.school,
+  'PROFESSIONAL': ProjectType.professional,
+  'PERSONAL': ProjectType.personal,
+};
+
+const Map<ProjectType, String> _projectTypeToString = {
+  ProjectType.school: 'SCHOOL',
+  ProjectType.professional: 'PROFESSIONAL',
+  ProjectType.personal: 'PERSONAL',
+};
+
+ProjectType projectTypeFromString(String? value) =>
+    _stringToProjectType[value] ?? ProjectType.personal;
+
+String projectTypeToString(ProjectType type) =>
+    _projectTypeToString[type] ?? 'PERSONAL';
+
 class Project {
   final int id;
   final String title;
@@ -9,7 +29,7 @@ class Project {
   final String projectDescription;
   final String? projectReason;
   final List<Technology> technologies;
-  final String projectType; // 'SCHOOL', 'PROFESSIONAL', 'PERSONAL'
+  final ProjectType projectType;
 
   Project({
     required this.id,
@@ -34,7 +54,7 @@ class Project {
       projectDescription: json['project_description'],
       projectReason: json['project_reason'],
       technologies: techList.map((t) => Technology.fromJson(t)).toList(),
-      projectType: json['project_type'],
+      projectType: projectTypeFromString(json['project_type']),
     );
   }
 } 
