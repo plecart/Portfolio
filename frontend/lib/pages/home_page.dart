@@ -23,34 +23,32 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mon Portfolio'),
+        title: const Text('Mon Portfolio'),
         centerTitle: true,
+        elevation: 0,
       ),
       body: FutureBuilder<List<Project>>(
         future: _futureProjects,
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator(color: Colors.white));
           } else if (snapshot.hasError) {
-            return Center(child: Text('Erreur: \\${snapshot.error}'));
+            return Center(child: Text('Erreur: \\${snapshot.error}', style: const TextStyle(color: Colors.white)));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('Aucun projet trouvé.'));
+            return const Center(child: Text('Aucun projet trouvé.', style: TextStyle(color: Colors.white)));
           }
           final projects = snapshot.data!;
           return LayoutBuilder(
             builder: (context, constraints) {
-              int crossAxisCount = constraints.maxWidth > 900
-                  ? 4
-                  : constraints.maxWidth > 600
-                      ? 2
-                      : 1;
+              int crossAxisCount = 4;
+              crossAxisCount = _adjustCrossAxisCount(constraints.maxWidth, crossAxisCount);
               return GridView.builder(
                 padding: const EdgeInsets.all(16),
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: crossAxisCount,
                   crossAxisSpacing: 16,
                   mainAxisSpacing: 16,
-                  childAspectRatio: 3 / 4,
+                  childAspectRatio: 16 / 9,
                 ),
                 itemCount: projects.length,
                 itemBuilder: (context, index) {
@@ -62,5 +60,14 @@ class _HomePageState extends State<HomePage> {
         },
       ),
     );
+  }
+
+  int _adjustCrossAxisCount(double width, int crossAxisCount) {
+    double cardWidth = width / crossAxisCount;
+    while (cardWidth < 400 && crossAxisCount > 1) {
+      crossAxisCount--;
+      cardWidth = width / crossAxisCount;
+    }
+    return crossAxisCount;
   }
 } 

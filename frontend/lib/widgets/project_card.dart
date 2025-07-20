@@ -8,6 +8,7 @@ class ProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: const Color(0xFF303046),
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       child: Column(
@@ -15,11 +16,11 @@ class ProjectCard extends StatelessWidget {
         children: [
           Expanded(
             child: ClipRRect(
-              borderRadius: BorderRadius.vertical(top: Radius.circular(12)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
               child: Image.network(
                 project.thumbnail,
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => Icon(Icons.broken_image),
+                errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image, color: Colors.white),
               ),
             ),
           ),
@@ -30,11 +31,11 @@ class ProjectCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     project.title,
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
                 if (project.professional)
-                  Icon(Icons.verified, color: Colors.blue, size: 20),
+                  const Icon(Icons.verified, color: Colors.blue, size: 20),
               ],
             ),
           ),
