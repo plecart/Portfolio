@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../models/project.dart';
 import '../services/project_service.dart';
-import '../widgets/project_card.dart';
+import '../widgets/project_card/project_card.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
