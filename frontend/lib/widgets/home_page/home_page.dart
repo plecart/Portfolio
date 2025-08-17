@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'header.dart';
 import 'content.dart';
 import 'footer.dart';
+import 'background.dart';
 import '../utils/constants.dart';
 
 class HomePage extends StatelessWidget {
@@ -10,19 +10,24 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.primaryBackground,
-      body: const Column(
+      backgroundColor: const Color(0xFF0A0A0A),
+      body: Stack(
         children: [
-          // Header avec le titre
-          Header(),
+          // Background avec image et gradient
+          const Background(),
           
-          // Contenu principal avec la grille des projets
-          Expanded(
-            child: Content(),
+          // Contenu principal
+          const Column(
+            children: [
+              // Contenu principal avec la grille des projets (inclut le header)
+              Expanded(
+                child: Content(),
+              ),
+              
+              // Footer
+              Footer(),
+            ],
           ),
-          
-          // Footer
-          Footer(),
         ],
       ),
     );

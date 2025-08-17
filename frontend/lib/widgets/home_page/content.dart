@@ -4,6 +4,7 @@ import '../../services/project_service.dart';
 import '../project_card/project_card.dart';
 import '../utils/constants.dart';
 import '../utils/helpers.dart';
+import 'header.dart';
 
 class Content extends StatefulWidget {
   const Content({super.key});
@@ -57,18 +58,31 @@ class _ContentState extends State<Content> {
             final crossAxisCount = ((availableWidth + spacing) / (cardWidth + spacing)).floor();
             final actualCrossAxisCount = crossAxisCount.clamp(1, 4); // Entre 1 et 4 colonnes
             
-            return GridView.builder(
-              padding: const EdgeInsets.all(AppDimensions.defaultPadding),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: actualCrossAxisCount,
-                crossAxisSpacing: AppDimensions.cardSpacing,
-                mainAxisSpacing: AppDimensions.cardSpacing,
-                childAspectRatio: 1.1, // Ratio hauteur/largeur : 1.2 = plus large que haut
-              ),
-              itemCount: projects.length,
-              itemBuilder: (context, index) {
-                return ProjectCard(project: projects[index]);
-              },
+            return CustomScrollView(
+              slivers: [
+                // Header dans le scroll
+                const SliverToBoxAdapter(
+                  child: Header(),
+                ),
+                // Grille des projets
+                SliverPadding(
+                  padding: const EdgeInsets.all(AppDimensions.defaultPadding),
+                  sliver: SliverGrid(
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: actualCrossAxisCount,
+                      crossAxisSpacing: AppDimensions.cardSpacing,
+                      mainAxisSpacing: AppDimensions.cardSpacing,
+                      childAspectRatio: 1.1,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (context, index) {
+                        return ProjectCard(project: projects[index]);
+                      },
+                      childCount: projects.length,
+                    ),
+                  ),
+                ),
+              ],
             );
           },
         );
